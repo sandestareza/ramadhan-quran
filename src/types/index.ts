@@ -1,0 +1,174 @@
+// API Response Types
+export interface ApiResponse<T> {
+  code: number;
+  message: string;
+  data: T;
+}
+
+// Audio map from 6 qari
+export interface AudioMap {
+  '01': string; // Abdullah Al-Juhany
+  '02': string; // Abdul Muhsin Al-Qasim
+  '03': string; // Abdurrahman As-Sudais
+  '04': string; // Ibrahim Al-Dossari
+  '05': string; // Misyari Rasyid Al-Afasy
+  '06': string; // Yasser Al-Dosari
+}
+
+export type QariKey = keyof AudioMap;
+
+export const QARI_NAMES: Record<QariKey, string> = {
+  '01': 'Abdullah Al-Juhany',
+  '02': 'Abdul Muhsin Al-Qasim',
+  '03': 'Abdurrahman As-Sudais',
+  '04': 'Ibrahim Al-Dossari',
+  '05': 'Misyari Rasyid Al-Afasy',
+  '06': 'Yasser Al-Dosari',
+};
+
+// Surah (list item)
+export interface Surah {
+  nomor: number;
+  nama: string;
+  namaLatin: string;
+  jumlahAyat: number;
+  tempatTurun: string;
+  arti: string;
+  deskripsi: string;
+  audioFull: AudioMap;
+}
+
+// Ayat
+export interface Ayat {
+  nomorAyat: number;
+  teksArab: string;
+  teksLatin: string;
+  teksIndonesia: string;
+  audio: AudioMap;
+}
+
+// Surah Navigation
+export interface SurahNav {
+  nomor: number;
+  nama: string;
+  namaLatin: string;
+  jumlahAyat: number;
+}
+
+// Surah Detail (with ayat)
+export interface SurahDetail {
+  nomor: number;
+  nama: string;
+  namaLatin: string;
+  jumlahAyat: number;
+  tempatTurun: string;
+  arti: string;
+  deskripsi: string;
+  audioFull: AudioMap;
+  ayat: Ayat[];
+  suratSelanjutnya: SurahNav | false;
+  suratSebelumnya: SurahNav | false;
+}
+
+// Tafsir ayat
+export interface TafsirAyat {
+  ayat: number;
+  teks: string;
+}
+
+// Tafsir response
+export interface TafsirData {
+  nomor: number;
+  nama: string;
+  namaLatin: string;
+  jumlahAyat: number;
+  tempatTurun: string;
+  arti: string;
+  deskripsi: string;
+  audioFull: AudioMap;
+  tafsir: TafsirAyat[];
+}
+
+// Bookmark
+export interface Bookmark {
+  id: string; // `${surahNomor}:${ayatNomor}`
+  surahNomor: number;
+  surahNama: string;
+  surahNamaLatin: string;
+  ayatNomor: number;
+  teksArab: string;
+  teksIndonesia: string;
+  createdAt: number;
+}
+
+// Display modes
+export type DisplayMode = 'arabic' | 'arabic-latin' | 'arabic-translation' | 'full';
+
+export const DISPLAY_MODE_LABELS: Record<DisplayMode, string> = {
+  'arabic': 'Arabic Only',
+  'arabic-latin': 'Arabic + Latin',
+  'arabic-translation': 'Arabic + Translation',
+  'full': 'Full (Arabic + Latin + Translation)',
+};
+
+// Juz mapping
+export interface JuzInfo {
+  juz: number;
+  start: { surah: number; ayat: number };
+  end: { surah: number; ayat: number };
+  surahNames?: string[];
+}
+
+// Settings
+export interface AppSettings {
+  darkMode: boolean;
+  displayMode: DisplayMode;
+  selectedQari: QariKey;
+}
+
+// Doa
+export interface Doa {
+  id: number;
+  grup: string;
+  nama: string;
+  ar: string;
+  tr: string;
+  idn: string;
+  tentang: string;
+  tag: string[];
+}
+
+export interface DoaApiResponse {
+  status: string;
+  total: number;
+  data: Doa[];
+}
+
+// Jadwal Sholat
+export interface JadwalSholat {
+  tanggal: number;
+  tanggal_lengkap: string;
+  hari: string;
+  imsak: string;
+  subuh: string;
+  terbit: string;
+  dhuha: string;
+  dzuhur: string;
+  ashar: string;
+  maghrib: string;
+  isya: string;
+}
+
+export interface JadwalSholatResponse {
+  provinsi: string;
+  kabkota: string;
+  bulan: number;
+  tahun: number;
+  bulan_nama: string;
+  jadwal: JadwalSholat[];
+}
+
+export interface SholatLocation {
+  provinsi: string;
+  kabkota: string;
+}
