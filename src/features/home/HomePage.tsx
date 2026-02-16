@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from '@tanstack/react-router';
-import { BookOpen, Layers, Star, ChevronRight, HandHeart, MapPin, Clock, Sun, Sunrise, Sunset, Moon, CloudSun } from 'lucide-react';
+import { BookOpen, Layers, Star, ChevronRight, HandHeart, MapPin, Clock, Sun, Sunrise, Sunset, Moon, CloudSun, Gamepad2 } from 'lucide-react';
 import { useSurahList, useJadwalSholat, useSholatLocation } from '@/hooks/useQuran';
 import { SurahCardSkeleton } from '@/components/Skeleton';
 import { useMemo, useState, useEffect } from 'react';
@@ -41,7 +41,7 @@ function formatCountdown(seconds: number): string {
 export function HomePage() {
   const navigate = useNavigate();
   const { data: surahs, isLoading } = useSurahList();
-  const { location } = useSholatLocation();
+  const { location, detecting } = useSholatLocation();
   const [tick, setTick] = useState(0);
 
   useEffect(() => {
@@ -148,6 +148,20 @@ export function HomePage() {
             </div>
             <ChevronRight className="w-4 h-4 text-primary-200 ml-auto" />
           </button>
+
+          <button
+            onClick={() => navigate({ to: '/game' })}
+            className="flex items-center gap-3 bg-gradient-to-r from-yellow-400/30 to-orange-400/30 hover:from-yellow-400/40 hover:to-orange-400/40 backdrop-blur-sm rounded-2xl p-4 transition-colors text-left col-span-2 ring-1 ring-yellow-300/30"
+          >
+            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-xl">
+              🎮
+            </div>
+            <div>
+              <p className="text-white font-semibold text-sm">Game Belajar</p>
+              <p className="text-yellow-200 text-xs">Hafal Quran sambil bermain!</p>
+            </div>
+            <ChevronRight className="w-4 h-4 text-yellow-200 ml-auto" />
+          </button>
         </motion.div>
       </div>
 
@@ -169,16 +183,25 @@ export function HomePage() {
               </div>
               <div>
                 <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">Jadwal Sholat Hari Ini</p>
-                {nextPrayer && (
-                  <p className="text-[10px] text-primary-600 dark:text-primary-400 font-semibold flex items-center gap-1">
-                    <Clock className="w-2.5 h-2.5" />
-                    Menuju {PRAYER_LABELS[nextPrayer]} — {countdown}
+                {detecting ? (
+                  <p className="text-[10px] text-amber-500 dark:text-amber-400 font-medium flex items-center gap-1 animate-pulse">
+                    <MapPin className="w-2.5 h-2.5" />
+                    Mendeteksi lokasi...
                   </p>
+                ) : (
+                  <>
+                    {nextPrayer && (
+                      <p className="text-[10px] text-primary-600 dark:text-primary-400 font-semibold flex items-center gap-1">
+                        <Clock className="w-2.5 h-2.5" />
+                        Menuju {PRAYER_LABELS[nextPrayer]} — {countdown}
+                      </p>
+                    )}
+                    <p className="text-[10px] text-gray-400 dark:text-gray-500 flex items-center gap-1">
+                      <MapPin className="w-2.5 h-2.5" />
+                      {location.kabkota}, {location.provinsi}
+                    </p>
+                  </>
                 )}
-                <p className="text-[10px] text-gray-400 dark:text-gray-500 flex items-center gap-1">
-                  <MapPin className="w-2.5 h-2.5" />
-                  {location.kabkota}, {location.provinsi}
-                </p>
               </div>
             </div>
             <ChevronRight className="w-4 h-4 text-gray-400" />

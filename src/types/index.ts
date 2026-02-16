@@ -172,3 +172,29 @@ export interface SholatLocation {
   provinsi: string;
   kabkota: string;
 }
+
+// Game
+export type GameMode = 'tebak-surah' | 'sambung-ayat' | 'tebak-arti';
+
+export interface GameQuestion {
+  id: number;
+  questionText: string;        // main display (arabic text or prompt)
+  questionSubText?: string;    // secondary text (latin hint)
+  choices: string[];           // 4 answer options
+  correctIndex: number;        // index of correct answer
+  surahName?: string;          // for showing after answer
+  audioUrl?: string;           // ayat audio URL
+}
+
+export interface GameState {
+  mode: GameMode;
+  questions: GameQuestion[];
+  currentIndex: number;
+  score: number;
+  streak: number;
+  bestStreak: number;
+  answers: (boolean | null)[];  // track each answer
+  status: 'playing' | 'answered' | 'finished';
+  selectedAnswer: number | null;
+}
+
