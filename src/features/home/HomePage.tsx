@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from '@tanstack/react-router';
-import { BookOpen, Layers, Star, ChevronRight, HandHeart, MapPin, Clock, Sun, Sunrise, Sunset, Moon, CloudSun, Gamepad2 } from 'lucide-react';
+import { BookOpen, Layers, Star, ChevronRight, HandHeart, MapPin, Clock, Sun, Sunrise, Sunset, Moon, CloudSun } from 'lucide-react';
 import { useSurahList, useJadwalSholat, useSholatLocation } from '@/hooks/useQuran';
 import { SurahCardSkeleton } from '@/components/Skeleton';
 import { useMemo, useState, useEffect } from 'react';
@@ -162,6 +162,8 @@ export function HomePage() {
             </div>
             <ChevronRight className="w-4 h-4 text-yellow-200 ml-auto" />
           </button>
+
+          
         </motion.div>
       </div>
 

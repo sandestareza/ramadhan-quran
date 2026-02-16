@@ -1,12 +1,12 @@
 import { useNavigate, useLocation } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
-import { Home, BookOpen, Bookmark, Settings, HandHeart } from 'lucide-react';
+import { Home, BookOpen, Bookmark, Settings, Compass } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const NAV_ITEMS = [
   { path: '/', label: 'Home', icon: Home },
   { path: '/surah', label: 'Surah', icon: BookOpen },
-  { path: '/doa', label: 'Doa', icon: HandHeart },
+  { path: '/kiblat', label: 'Kiblat', icon: Compass },
   { path: '/bookmark', label: 'Bookmark', icon: Bookmark },
   { path: '/settings', label: 'Settings', icon: Settings },
 ] as const;
