@@ -9,6 +9,8 @@ import { doaRoute } from './doa';
 import { jadwalSholatRoute } from './jadwal-sholat';
 import { gameHubRoute, gamePlayRoute } from './game';
 import { kiblatRoute } from './kiblat';
+import { hafalanRoute } from './hafalan';
+import { dzikirRoute } from './dzikir';
 
 const routeTree = rootRoute.addChildren([
   homeRoute,
@@ -20,6 +22,8 @@ const routeTree = rootRoute.addChildren([
   gameHubRoute,
   gamePlayRoute,
   kiblatRoute,
+  hafalanRoute,
+  dzikirRoute,
   bookmarkRoute,
   settingsRoute,
 ]);

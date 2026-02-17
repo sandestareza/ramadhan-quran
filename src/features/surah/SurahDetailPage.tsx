@@ -1,9 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, useSearch } from '@tanstack/react-router';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Play, Pause, ChevronDown, ChevronUp, Eye } from 'lucide-react';
+import { ArrowLeft, Play, Pause, ChevronDown, ChevronUp, Eye, Volume2, Bookmark, BookmarkCheck } from 'lucide-react';
 import { useSurahDetail, useTafsir } from '@/hooks/useQuran';
 import { useBookmark } from '@/hooks/useBookmark';
+import { useReadingHistory } from '@/hooks/useReadingHistory';
+import { useReadingStats } from '@/hooks/useReadingStats';
 import { useAudioPlayer } from '@/hooks/useAudioPlayer';
 import { useSettings } from '@/hooks/useSettings';
 import { AyatCard } from '@/components/AyatCard';
@@ -22,6 +24,33 @@ export function SurahDetailPage() {
   const { isBookmarked, toggleBookmark } = useBookmark();
   const audio = useAudioPlayer();
   const { settings, setDisplayMode } = useSettings();
+  const { recordReading, updateLastAyat } = useReadingHistory();
+  const { recordAyatRead } = useReadingStats();
+  const [markedAyat, setMarkedAyat] = useState<number>(0);
+
+  // Record reading history + stats when surah data loads
+  useEffect(() => {
+    if (surah) {
+      recordReading({
+        surahNomor: surah.nomor,
+        surahName: surah.namaLatin,
+        surahNameAr: surah.nama,
+        lastAyat: scrollToAyat || 1,
+        totalAyat: surah.jumlahAyat,
+      });
+      // Track reading stats (count ayat of visited surah)
+      recordAyatRead(surah.jumlahAyat, surah.namaLatin);
+      // Load the saved lastAyat as initial marked position
+      setMarkedAyat(scrollToAyat || 1);
+    }
+  }, [surah?.nomor]);
+
+  // Update last read ayat when audio plays
+  useEffect(() => {
+    if (audio.currentAyat && audio.currentSurah === nomor) {
+      updateLastAyat(nomor, audio.currentAyat);
+    }
+  }, [audio.currentAyat, audio.currentSurah, nomor, updateLastAyat]);
   
   const { ayat: scrollToAyat } = useSearch({ strict: false }) as { ayat?: number };
   const [activeTab, setActiveTab] = useState<'ayat' | 'tafsir'>('ayat');
@@ -227,8 +256,13 @@ export function SurahDetailPage() {
               isActive={audio.currentAyat === ayat.nomorAyat && audio.currentSurah === nomor || highlightedAyat === ayat.nomorAyat}
               isBookmarked={isBookmarked(nomor, ayat.nomorAyat)}
               isPlaying={audio.isPlaying && audio.currentAyat === ayat.nomorAyat && audio.currentSurah === nomor}
+              isMarkedRead={ayat.nomorAyat <= markedAyat}
               onPlayToggle={() => audio.togglePlay(ayat, nomor)}
               onBookmarkToggle={() => toggleBookmark(nomor, surah.nama, surah.namaLatin, ayat)}
+              onMarkRead={() => {
+                setMarkedAyat(ayat.nomorAyat);
+                updateLastAyat(nomor, ayat.nomorAyat);
+              }}
               index={index}
             />
           ))

@@ -1,6 +1,7 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import { BottomNav } from '@/components/BottomNav';
+import { usePrayerNotification } from '@/hooks/usePrayerNotification';
 
 function useInitSettings() {
   useEffect(() => {
@@ -18,6 +19,9 @@ function useInitSettings() {
 
 function RootLayout() {
   useInitSettings();
+  // Start prayer notification watcher (runs in background)
+  usePrayerNotification();
+
   return (
     <div className="min-h-screen bg-stone-50 dark:bg-gray-950 transition-colors">
       <div className="max-w-lg mx-auto relative">

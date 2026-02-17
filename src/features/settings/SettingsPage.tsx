@@ -1,15 +1,18 @@
 import { motion } from 'framer-motion';
-import { Moon, Sun, Eye, Music, Info, ExternalLink } from 'lucide-react';
+import { Moon, Sun, Eye, Music, Info, ExternalLink, Bell, BellOff } from 'lucide-react';
 import { useSettings } from '@/hooks/useSettings';
+import { usePrayerNotification } from '@/hooks/usePrayerNotification';
 import { cn } from '@/lib/utils';
 import type { DisplayMode, QariKey } from '@/types';
 import { DISPLAY_MODE_LABELS, QARI_NAMES } from '@/types';
 
 export function SettingsPage() {
   const { settings, toggleDarkMode, setDisplayMode, setSelectedQari } = useSettings();
+  const notif = usePrayerNotification();
   
   const displayModes: DisplayMode[] = ['arabic', 'arabic-latin', 'arabic-translation', 'full'];
   const qariKeys: QariKey[] = ['01', '02', '03', '04', '05', '06'];
+  const minuteOptions = [0, 5, 10, 15, 30];
 
   return (
     <div className="pb-safe">
@@ -65,6 +68,84 @@ export function SettingsPage() {
               />
             </motion.button>
           </div>
+        </motion.div>
+
+        {/* Prayer Notifications */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.05 }}
+          className="rounded-2xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 p-4"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className={cn(
+                'w-10 h-10 rounded-xl flex items-center justify-center',
+                notif.enabled
+                  ? 'bg-green-50 dark:bg-green-950/30'
+                  : 'bg-gray-100 dark:bg-gray-800'
+              )}>
+                {notif.enabled ? (
+                  <Bell className="w-5 h-5 text-green-600 dark:text-green-400" />
+                ) : (
+                  <BellOff className="w-5 h-5 text-gray-400" />
+                )}
+              </div>
+              <div>
+                <p className="font-semibold text-gray-900 dark:text-gray-100 text-sm">Pengingat Sholat</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  {notif.enabled ? 'Aktif — notifikasi sebelum adzan' : 'Nonaktif'}
+                </p>
+              </div>
+            </div>
+
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              onClick={notif.toggleNotifications}
+              className={cn(
+                'relative w-14 h-8 rounded-full transition-colors',
+                notif.enabled ? 'bg-green-500' : 'bg-gray-300 dark:bg-gray-700'
+              )}
+            >
+              <motion.div
+                animate={{ x: notif.enabled ? 24 : 2 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                className="absolute top-1 w-6 h-6 rounded-full bg-white shadow-md"
+              />
+            </motion.button>
+          </div>
+
+          {notif.enabled && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800"
+            >
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">Ingatkan sebelum waktu sholat:</p>
+              <div className="flex items-center gap-2">
+                {minuteOptions.map(min => (
+                  <button
+                    key={min}
+                    onClick={() => notif.setMinutesBefore(min)}
+                    className={cn(
+                      'flex-1 py-2 rounded-xl text-xs font-medium transition-colors',
+                      notif.minutesBefore === min
+                        ? 'bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-400 ring-1 ring-green-200 dark:ring-green-800'
+                        : 'bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400'
+                    )}
+                  >
+                    {min === 0 ? 'Tepat' : `${min} mnt`}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {notif.permissionState === 'denied' && (
+            <p className="mt-3 text-xs text-red-500 dark:text-red-400">
+              ⚠️ Izin notifikasi ditolak. Aktifkan di pengaturan browser.
+            </p>
+          )}
         </motion.div>
 
         {/* Display Mode */}
