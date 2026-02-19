@@ -11,6 +11,7 @@ import { gameHubRoute, gamePlayRoute } from './game';
 import { kiblatRoute } from './kiblat';
 import { hafalanRoute } from './hafalan';
 import { dzikirRoute } from './dzikir';
+import { ramadhanTrackerRoute } from './ramadhan-tracker';
 
 const routeTree = rootRoute.addChildren([
   homeRoute,
@@ -26,6 +27,7 @@ const routeTree = rootRoute.addChildren([
   dzikirRoute,
   bookmarkRoute,
   settingsRoute,
+  ramadhanTrackerRoute,
 ]);
 
 export const router = createRouter({ routeTree });

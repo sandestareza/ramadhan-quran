@@ -127,7 +127,7 @@ export function HomePage() {
   return (
     <div className="pb-safe">
       {/* Hero */}
-      <div className="relative overflow-hidden bg-linear-to-br from-primary-600 via-primary-700 to-primary-800 dark:from-primary-800 dark:via-primary-900 dark:to-gray-950 rounded-b-[2rem] px-6 pt-12 pb-10">
+      <div className="relative overflow-hidden bg-linear-to-br from-primary-600 via-primary-700 to-primary-800 dark:from-primary-800 dark:via-primary-900 dark:to-gray-950 rounded-b-4xl px-6 pt-12 pb-10">
         {/* Decorative pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-4 right-4 w-32 h-32 border-2 border-white rounded-full" />
@@ -148,106 +148,110 @@ export function HomePage() {
             Baca, dengarkan, dan pahami Al-Qur'an
           </p>
         </motion.div>
-
-        {/* Quick actions */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-6 grid grid-cols-2 gap-3"
-        >
-          <button
-            onClick={() => navigate({ to: "/surah" })}
-            className="flex items-center gap-3 bg-white/15 hover:bg-white/25 backdrop-blur-sm rounded-2xl p-4 transition-colors text-left"
-          >
-            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
-              <BookOpen className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <p className="text-white font-semibold text-sm">Surah</p>
-              <p className="text-primary-200 text-xs">114 Surah</p>
-            </div>
-          </button>
-
-          <button
-            onClick={() => navigate({ to: "/juz" })}
-            className="flex items-center gap-3 bg-white/15 hover:bg-white/25 backdrop-blur-sm rounded-2xl p-4 transition-colors text-left"
-          >
-            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
-              <Layers className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <p className="text-white font-semibold text-sm">Juz</p>
-              <p className="text-primary-200 text-xs">30 Juz</p>
-            </div>
-          </button>
-
-          <button
-            onClick={() => navigate({ to: "/doa" })}
-            className="flex items-center gap-3 bg-white/15 hover:bg-white/25 backdrop-blur-sm rounded-2xl p-4 transition-colors text-left col-span-2"
-          >
-            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
-              <HandHeart className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <p className="text-white font-semibold text-sm">Kumpulan Doa</p>
-              <p className="text-primary-200 text-xs">
-                227 doa harian dari sumber shahih
-              </p>
-            </div>
-            <ChevronRight className="w-4 h-4 text-primary-200 ml-auto" />
-          </button>
-
-          <button
-            onClick={() => navigate({ to: "/dzikir" })}
-            className="flex items-center gap-3 bg-linear-to-r from-teal-400/30 to-cyan-400/30 hover:from-teal-400/40 hover:to-cyan-400/40 backdrop-blur-sm rounded-2xl p-4 transition-colors text-left ring-1 ring-teal-300/30 col-span-2"
-          >
-            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-xl">
-              📿
-            </div>
-            <div>
-              <p className="text-white font-semibold text-sm">Tasbih Digital</p>
-              <p className="text-teal-200 text-xs">
-                Counter dzikir & wirid harian
-              </p>
-            </div>
-            <ChevronRight className="w-4 h-4 text-teal-200 ml-auto" />
-          </button>
-
-          <button
-            onClick={() => navigate({ to: "/hafalan" })}
-            className="flex items-center gap-3 bg-linear-to-r from-violet-400/30 to-purple-400/30 hover:from-violet-400/40 hover:to-purple-400/40 backdrop-blur-sm rounded-2xl p-4 transition-colors text-left ring-1 ring-violet-300/30 col-span-2"
-          >
-            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-xl">
-              🎯
-            </div>
-            <div>
-              <p className="text-white font-semibold text-sm">Target Hafalan</p>
-              <p className="text-violet-200 text-xs">
-                Lacak progres hafalan surah
-              </p>
-            </div>
-            <ChevronRight className="w-4 h-4 text-violet-200 ml-auto" />
-          </button>
-
-          <button
-            onClick={() => navigate({ to: "/game" })}
-            className="flex items-center gap-3 bg-linear-to-r from-yellow-400/30 to-orange-400/30 hover:from-yellow-400/40 hover:to-orange-400/40 backdrop-blur-sm rounded-2xl p-4 transition-colors text-left col-span-2 ring-1 ring-yellow-300/30"
-          >
-            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-xl">
-              🎮
-            </div>
-            <div>
-              <p className="text-white font-semibold text-sm">Game Belajar</p>
-              <p className="text-yellow-200 text-xs">
-                Hafal Quran sambil bermain!
-              </p>
-            </div>
-            <ChevronRight className="w-4 h-4 text-yellow-200 ml-auto" />
-          </button>
-        </motion.div>
       </div>
 
+      {/* Features Grid */}
+        <div className="px-6 -mt-6 relative z-10 space-y-8">
+          
+          {/* Ramadhan Special */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+             <button
+              onClick={() => navigate({ to: "/ramadhan-tracker" })}
+              className="w-full flex items-center gap-4 bg-linear-to-r from-emerald-500 to-teal-600 rounded-3xl p-5 text-left shadow-xl shadow-teal-500/20 relative overflow-hidden group"
+            >
+              {/* Decorative elements */}
+              <div className="absolute top-0 right-0 opacity-10 text-9xl transform translate-x-8 -translate-y-4 rotate-12 transition-transform group-hover:scale-110 duration-700">🌙</div>
+              <div className="absolute bottom-0 left-0 opacity-10 text-6xl transform -translate-x-4 translate-y-4 -rotate-12">✨</div>
+              
+              <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl shadow-inner shrink-0">
+                📅
+              </div>
+              <div className="flex-1 relative z-10 min-w-0">
+                <h3 className="text-white font-bold text-lg mb-1">Ramadhan Tracker</h3>
+                <p className="text-teal-100 text-xs font-medium opacity-90 leading-relaxed">
+                  Pantau ibadah harian &<br/> target khatam Quran
+                </p>
+              </div>
+              <div className="bg-white/20 p-2.5 rounded-full backdrop-blur-sm group-hover:bg-white/30 transition-colors">
+                <ChevronRight className="w-5 h-5 text-white" />
+              </div>
+            </button>
+          </motion.div>
+
+          {/* Main Features */}
+          <div>
+            <h3 className="text-gray-900 dark:text-gray-100 font-bold mb-4 px-1 flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-primary-600" />
+              Al-Qur'an & Ibadah
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+              <MenuCard 
+                title="Surah" 
+                subtitle="114 Surah" 
+                icon={<BookOpen className="w-5 h-5" />} 
+                color="blue"
+                onClick={() => navigate({ to: "/surah" })}
+                delay={0.3}
+              />
+              <MenuCard 
+                title="Juz" 
+                subtitle="30 Juz" 
+                icon={<Layers className="w-5 h-5" />} 
+                color="indigo"
+                onClick={() => navigate({ to: "/juz" })}
+                delay={0.35}
+              />
+              <MenuCard 
+                title="Doa-doa" 
+                subtitle="Harian & Pilihan" 
+                icon={<HandHeart className="w-5 h-5" />} 
+                color="pink"
+                onClick={() => navigate({ to: "/doa" })}
+                delay={0.4}
+              />
+               <MenuCard 
+                title="Tasbih" 
+                subtitle="Counter Dzikir" 
+                icon={<span className="text-xl">📿</span>} 
+                color="teal"
+                onClick={() => navigate({ to: "/dzikir" })}
+                delay={0.45}
+              />
+            </div>
+          </div>
+
+          {/* Activity Features */}
+          <div>
+             <h3 className="text-gray-900 dark:text-gray-100 font-bold mb-4 px-1 flex items-center gap-2">
+              <Star className="w-4 h-4 text-yellow-500" />
+              Belajar & Seru
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+               <MenuCard 
+                title="Hafalan" 
+                subtitle="Tracking Hafalan" 
+                icon={<span className="text-xl">🎯</span>} 
+                color="violet"
+                onClick={() => navigate({ to: "/hafalan" })}
+                delay={0.5}
+              />
+              <MenuCard 
+                title="Game" 
+                subtitle="Kuis Al-Qur'an" 
+                icon={<span className="text-xl">🎮</span>} 
+                color="orange"
+                onClick={() => navigate({ to: "/game" })}
+                delay={0.55}
+              />
+            </div>
+          </div>
+
+        </div>
+      
       {/* Jadwal Sholat Hari Ini */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -445,5 +449,47 @@ export function HomePage() {
         </div>
       </motion.div>
     </div>
+  );
+}
+
+interface MenuCardProps {
+  title: string;
+  subtitle: string;
+  icon: React.ReactNode;
+  color: "blue" | "indigo" | "pink" | "teal" | "violet" | "orange";
+  onClick: () => void;
+  delay: number;
+}
+
+function MenuCard({ title, subtitle, icon, color, onClick, delay }: MenuCardProps) {
+  const colorStyles = {
+    blue: "bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400",
+    indigo: "bg-indigo-50 text-indigo-600 dark:bg-indigo-900/20 dark:text-indigo-400",
+    pink: "bg-pink-50 text-pink-600 dark:bg-pink-900/20 dark:text-pink-400",
+    teal: "bg-teal-50 text-teal-600 dark:bg-teal-900/20 dark:text-teal-400",
+    violet: "bg-violet-50 text-violet-600 dark:bg-violet-900/20 dark:text-violet-400",
+    orange: "bg-orange-50 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400",
+  };
+
+  return (
+    <motion.button
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay }}
+      onClick={onClick}
+      whileTap={{ scale: 0.95 }}
+      className="flex flex-col gap-3 p-4 rounded-3xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md hover:border-primary-100 dark:hover:border-gray-700 transition-all text-left group relative overflow-hidden"
+    >
+      <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${colorStyles[color]} transition-transform group-hover:scale-110 group-hover:rotate-3 duration-300`}>
+        {icon}
+      </div>
+      <div>
+        <p className="font-bold text-gray-900 dark:text-gray-100 text-sm mb-0.5">{title}</p>
+        <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">{subtitle}</p>
+      </div>
+      
+      {/* Hover Effect */}
+      <div className="absolute inset-0 bg-gray-50/50 dark:bg-gray-800/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+    </motion.button>
   );
 }
