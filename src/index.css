@@ -2,6 +2,14 @@
 
 @variant dark (&:where(.dark, .dark *));
 
+@font-face {
+  font-family: 'LPMQ IsepMisbah';
+  src: url('/fonts/LPMQ IsepMisbah/LPMQ IsepMisbah.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   /* Soft Green Islamic Theme */
   --color-primary-50: #ecfdf5;
@@ -21,7 +29,7 @@
   --color-gold-600: #a67726;
 
   --font-sans: 'Inter', system-ui, sans-serif;
-  --font-arabic: 'Amiri', 'Traditional Arabic', serif;
+  --font-arabic: 'LPMQ IsepMisbah', 'Amiri Quran', 'Amiri', 'Traditional Arabic', sans-serif;
 
   --radius-lg: 1rem;
   --radius-md: 0.75rem;
