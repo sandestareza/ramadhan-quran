@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { ApiResponse, Surah, SurahDetail, TafsirData, Doa, DoaApiResponse, JadwalSholatResponse } from '@/types';
+import type { ApiResponse, Surah, SurahDetail, TafsirData, Doa, DoaApiResponse, JadwalSholatResponse, JuzDetail, JuzApiResponse } from '@/types';
 
 const api = axios.create({
   baseURL: 'https://equran.id/api/v2',
@@ -58,6 +58,12 @@ export const quranApi = {
   // Shalat - Get monthly schedule
   getJadwalSholat: async (provinsi: string, kabkota: string, bulan: number, tahun: number): Promise<JadwalSholatResponse> => {
     const { data } = await api.post<ApiResponse<JadwalSholatResponse>>('/shalat', { provinsi, kabkota, bulan, tahun });
+    return data.data;
+  },
+
+  // Get Juz Detail from api.alquran.cloud
+  getJuzDetail: async (juz: number): Promise<JuzDetail> => {
+    const { data } = await axios.get<JuzApiResponse>(`https://api.alquran.cloud/v1/juz/${juz}/quran-uthmani`);
     return data.data;
   },
 };

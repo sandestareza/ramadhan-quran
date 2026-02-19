@@ -24,9 +24,8 @@ export function SurahDetailPage() {
   const { isBookmarked, toggleBookmark } = useBookmark();
   const audio = useAudioPlayer();
   const { settings, setDisplayMode } = useSettings();
-  const { recordReading, updateLastAyat } = useReadingHistory();
+  const { recordReading } = useReadingHistory();
   const { recordAyatRead } = useReadingStats();
-  const [markedAyat, setMarkedAyat] = useState<number>(0);
 
   // Record reading history + stats when surah data loads
   useEffect(() => {
@@ -40,17 +39,10 @@ export function SurahDetailPage() {
       });
       // Track reading stats (count ayat of visited surah)
       recordAyatRead(surah.jumlahAyat, surah.namaLatin);
-      // Load the saved lastAyat as initial marked position
-      setMarkedAyat(scrollToAyat || 1);
     }
   }, [surah?.nomor]);
 
-  // Update last read ayat when audio plays
-  useEffect(() => {
-    if (audio.currentAyat && audio.currentSurah === nomor) {
-      updateLastAyat(nomor, audio.currentAyat);
-    }
-  }, [audio.currentAyat, audio.currentSurah, nomor, updateLastAyat]);
+
   
   const { ayat: scrollToAyat } = useSearch({ strict: false }) as { ayat?: number };
   const [activeTab, setActiveTab] = useState<'ayat' | 'tafsir'>('ayat');
@@ -256,13 +248,8 @@ export function SurahDetailPage() {
               isActive={audio.currentAyat === ayat.nomorAyat && audio.currentSurah === nomor || highlightedAyat === ayat.nomorAyat}
               isBookmarked={isBookmarked(nomor, ayat.nomorAyat)}
               isPlaying={audio.isPlaying && audio.currentAyat === ayat.nomorAyat && audio.currentSurah === nomor}
-              isMarkedRead={ayat.nomorAyat <= markedAyat}
               onPlayToggle={() => audio.togglePlay(ayat, nomor)}
               onBookmarkToggle={() => toggleBookmark(nomor, surah.nama, surah.namaLatin, ayat)}
-              onMarkRead={() => {
-                setMarkedAyat(ayat.nomorAyat);
-                updateLastAyat(nomor, ayat.nomorAyat);
-              }}
               index={index}
             />
           ))

@@ -65,11 +65,13 @@ export function useAudioPlayer() {
     audio.addEventListener('ended', () => {
       // Use refs to get current values (avoids stale closure)
       const currentIdx = ayatListRef.current.findIndex(
-        a => a.nomorAyat === currentAyatRef.current
+        a => a.nomorAyat === currentAyatRef.current && (a.surahNomor ? a.surahNomor === currentSurahRef.current : true)
       );
       if (currentIdx >= 0 && currentIdx < ayatListRef.current.length - 1) {
         const nextAyat = ayatListRef.current[currentIdx + 1];
-        playAyat(nextAyat, currentSurahRef.current!);
+        // Use nextAyat.surahNomor if available, otherwise fallback to currentSurahRef
+        const nextSurah = nextAyat.surahNomor || currentSurahRef.current!;
+        playAyat(nextAyat, nextSurah);
       } else {
         setState(prev => ({
           ...prev,

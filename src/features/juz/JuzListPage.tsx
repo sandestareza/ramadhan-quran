@@ -52,7 +52,7 @@ export function JuzListPage() {
                 key={juz.juz}
                 variants={item}
                 whileTap={{ scale: 0.96 }}
-                onClick={() => navigate({ to: '/surah/$surahId', params: { surahId: String(juz.start.surah) }, search: { ayat: undefined } })}
+                onClick={() => navigate({ to: '/juz/$juzId', params: { juzId: String(juz.juz) } })}
                 className="relative p-4 rounded-2xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 hover:border-primary-200 dark:hover:border-gray-700 transition-all text-left overflow-hidden group"
               >
                 {/* Decorative */}

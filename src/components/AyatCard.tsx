@@ -10,10 +10,8 @@ interface AyatCardProps {
   isActive: boolean;
   isBookmarked: boolean;
   isPlaying: boolean;
-  isMarkedRead?: boolean;
   onPlayToggle: () => void;
   onBookmarkToggle: () => void;
-  onMarkRead?: () => void;
   index: number;
 }
 
@@ -23,10 +21,8 @@ export function AyatCard({
   isActive,
   isBookmarked,
   isPlaying,
-  isMarkedRead,
   onPlayToggle,
   onBookmarkToggle,
-  onMarkRead,
   index,
 }: AyatCardProps) {
   const showLatin = displayMode === 'arabic-latin' || displayMode === 'full';
@@ -94,22 +90,7 @@ export function AyatCard({
             )}
           </motion.button>
 
-          {/* Mark read button */}
-          {onMarkRead && (
-            <motion.button
-              whileTap={{ scale: 0.9 }}
-              onClick={onMarkRead}
-              className={cn(
-                'w-9 h-9 rounded-xl flex items-center justify-center transition-colors',
-                isMarkedRead
-                  ? 'bg-green-500/10 text-green-500 dark:text-green-400'
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-green-50 dark:hover:bg-gray-700'
-              )}
-              title={isMarkedRead ? 'Sudah ditandai' : 'Tandai sudah baca'}
-            >
-              <CheckCircle2 className={cn('w-4 h-4', isMarkedRead && 'fill-green-500 dark:fill-green-400')} />
-            </motion.button>
-          )}
+
         </div>
       </div>
 

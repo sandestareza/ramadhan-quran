@@ -2,7 +2,7 @@ import { createRouter } from '@tanstack/react-router';
 import { rootRoute } from './__root';
 import { homeRoute } from './home';
 import { surahListRoute, surahDetailRoute } from './surah';
-import { juzRoute } from './juz';
+import { juzRoute, juzDetailRoute } from './juz';
 import { bookmarkRoute } from './bookmark';
 import { settingsRoute } from './settings';
 import { doaRoute } from './doa';
@@ -18,6 +18,7 @@ const routeTree = rootRoute.addChildren([
   surahListRoute,
   surahDetailRoute,
   juzRoute,
+  juzDetailRoute,
   doaRoute,
   jadwalSholatRoute,
   gameHubRoute,

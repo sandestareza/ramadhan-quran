@@ -45,6 +45,7 @@ export interface Ayat {
   teksLatin: string;
   teksIndonesia: string;
   audio: AudioMap;
+  surahNomor?: number;
 }
 
 // Surah Navigation
@@ -198,3 +199,45 @@ export interface GameState {
   selectedAnswer: number | null;
 }
 
+
+// Juz Detail from api.alquran.cloud
+export interface JuzAyah {
+  number: number;
+  text: string;
+  surah: {
+    number: number;
+    name: string;
+    englishName: string;
+    englishNameTranslation: string;
+    revelationType: string;
+    numberOfAyahs: number;
+  };
+  numberInSurah: number;
+  juz: number;
+  manzil: number;
+  page: number;
+  ruku: number;
+  hizbQuarter: number;
+  sajda: boolean | { id: number; recommended: boolean; obligatory: boolean };
+}
+
+export interface JuzDetail {
+  number: number;
+  ayahs: JuzAyah[];
+  surahs: { [key: number]: Surah }; // Helper for grouping
+  edition: {
+    identifier: string;
+    language: string;
+    name: string;
+    englishName: string;
+    format: string;
+    type: string;
+    direction: string;
+  };
+}
+
+export interface JuzApiResponse {
+  code: number;
+  status: string;
+  data: JuzDetail;
+}

@@ -169,3 +169,11 @@ export function useJadwalSholat(provinsi: string, kabkota: string, bulan: number
   });
 }
 
+export function useJuzDetail(juz: number) {
+  return useQuery({
+    queryKey: ['juz-detail', juz],
+    queryFn: () => quranApi.getJuzDetail(juz),
+    enabled: juz > 0 && juz <= 30,
+    staleTime: 1000 * 60 * 60 * 24, // 24 hours
+  });
+}
