@@ -112,6 +112,16 @@ export const DISPLAY_MODE_LABELS: Record<DisplayMode, string> = {
   'full': 'Full (Arabic + Latin + Translation)',
 };
 
+// Arabic Fonts
+export type ArabicFont = 'isepmisbah' | 'amiri' | 'amiri-quran' | 'traditional';
+
+export const ARABIC_FONT_LABELS: Record<ArabicFont, string> = {
+  'isepmisbah': 'LPMQ IsepMisbah (Kemenag)',
+  'amiri': 'Amiri',
+  'amiri-quran': 'Amiri Quran',
+  'traditional': 'Traditional Arabic',
+};
+
 // Juz mapping
 export interface JuzInfo {
   juz: number;
@@ -125,6 +135,7 @@ export interface AppSettings {
   darkMode: boolean;
   displayMode: DisplayMode;
   selectedQari: QariKey;
+  arabicFont: ArabicFont;
 }
 
 // Doa

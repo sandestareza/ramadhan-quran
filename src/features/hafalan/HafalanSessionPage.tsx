@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from '@tanstack/react-router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  ArrowLeft, Settings2, Play, Pause, 
-  Languages, Type, Eye
+    ArrowLeft, Settings2, Play, Pause, 
+    Languages, Type, Eye
 } from 'lucide-react';
 import { useSurahDetail } from '@/hooks/useQuran';
 import { useHafalanTracker } from '@/hooks/useHafalanTracker';
@@ -23,8 +23,6 @@ export function HafalanSessionPage() {
     const { data: surah, isLoading } = useSurahDetail(nomor);
     const { entries, toggleAyat } = useHafalanTracker();
     const audio = useAudioPlayer();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { settings } = useSettings();
 
     // Session State
     const [visibilityMode, setVisibilityMode] = useState<VisibilityMode>('visible');
@@ -96,7 +94,7 @@ export function HafalanSessionPage() {
                             exit={{ height: 0, opacity: 0 }}
                             className="overflow-hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800"
                         >
-                            <div className="p-4 space-y-4">
+                            <div className="p-4 space-y-5">
                                 {/* Visibility Controls */}
                                 <div className="space-y-2">
                                     <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Mode Hafalan</p>

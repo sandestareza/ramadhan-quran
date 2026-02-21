@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion';
-import { Moon, Sun, Eye, Music, Info, ExternalLink, Bell, BellOff } from 'lucide-react';
+import { Moon, Sun, Eye, Music, Info, ExternalLink, Bell, BellOff, TypeOutline } from 'lucide-react';
 import { useSettings } from '@/hooks/useSettings';
 import { usePrayerNotification } from '@/hooks/usePrayerNotification';
 import { cn } from '@/lib/utils';
-import type { DisplayMode, QariKey } from '@/types';
-import { DISPLAY_MODE_LABELS, QARI_NAMES } from '@/types';
+import type { DisplayMode, QariKey, ArabicFont } from '@/types';
+import { DISPLAY_MODE_LABELS, QARI_NAMES, ARABIC_FONT_LABELS } from '@/types';
 
 export function SettingsPage() {
-  const { settings, toggleDarkMode, setDisplayMode, setSelectedQari } = useSettings();
+  const { settings, toggleDarkMode, setDisplayMode, setSelectedQari, setArabicFont } = useSettings();
   const notif = usePrayerNotification();
   
   const displayModes: DisplayMode[] = ['arabic', 'arabic-latin', 'arabic-translation', 'full'];
@@ -146,6 +146,41 @@ export function SettingsPage() {
               ⚠️ Izin notifikasi ditolak. Aktifkan di pengaturan browser.
             </p>
           )}
+        </motion.div>
+
+        {/* Font Selection */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="rounded-2xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 p-4"
+        >
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-950/30 flex items-center justify-center">
+              <TypeOutline className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+            </div>
+            <div>
+              <p className="font-semibold text-gray-900 dark:text-gray-100 text-sm">Font Arab</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Pilih jenis tulisan ayat</p>
+            </div>
+          </div>
+
+          <div className="space-y-1.5">
+            {(Object.keys(ARABIC_FONT_LABELS) as ArabicFont[]).map(font => (
+              <button
+                key={font}
+                onClick={() => setArabicFont(font)}
+                className={cn(
+                  'w-full text-left px-4 py-3 rounded-xl text-sm transition-colors',
+                  settings.arabicFont === font
+                    ? 'bg-primary-50 dark:bg-primary-950/30 text-primary-700 dark:text-primary-400 font-medium'
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                )}
+              >
+                {ARABIC_FONT_LABELS[font]}
+              </button>
+            ))}
+          </div>
         </motion.div>
 
         {/* Display Mode */}

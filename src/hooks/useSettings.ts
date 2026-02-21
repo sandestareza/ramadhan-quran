@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { DisplayMode, AppSettings, QariKey } from '@/types';
+import type { DisplayMode, AppSettings, QariKey, ArabicFont } from '@/types';
 
 const SETTINGS_KEY = 'ramadhan-quran-settings';
 
@@ -7,6 +7,7 @@ const DEFAULT_SETTINGS: AppSettings = {
   darkMode: false,
   displayMode: 'full',
   selectedQari: '05',
+  arabicFont: 'isepmisbah',
 };
 
 function loadSettings(): AppSettings {
@@ -33,6 +34,15 @@ export function useSettings() {
     } else {
       document.documentElement.classList.remove('dark');
     }
+
+    // Apply arabic font CSS variable
+    const fontFamilies: Record<ArabicFont, string> = {
+      'isepmisbah': "'LPMQ IsepMisbah', 'Amiri Quran', 'Amiri', 'Traditional Arabic', sans-serif",
+      'amiri': "'Amiri', 'Amiri Quran', 'LPMQ IsepMisbah', 'Traditional Arabic', sans-serif",
+      'amiri-quran': "'Amiri Quran', 'Amiri', 'LPMQ IsepMisbah', 'Traditional Arabic', sans-serif",
+      'traditional': "'Traditional Arabic', 'LPMQ IsepMisbah', 'Amiri Quran', 'Amiri', sans-serif",
+    };
+    document.documentElement.style.setProperty('--font-arabic', fontFamilies[settings.arabicFont]);
   }, [settings]);
 
   const toggleDarkMode = useCallback(() => {
@@ -47,10 +57,15 @@ export function useSettings() {
     setSettings(prev => ({ ...prev, selectedQari: qari }));
   }, []);
 
+  const setArabicFont = useCallback((font: ArabicFont) => {
+    setSettings(prev => ({ ...prev, arabicFont: font }));
+  }, []);
+
   return {
     settings,
     toggleDarkMode,
     setDisplayMode,
     setSelectedQari,
+    setArabicFont,
   };
 }
