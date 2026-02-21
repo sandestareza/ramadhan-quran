@@ -10,6 +10,7 @@ import { jadwalSholatRoute } from './jadwal-sholat';
 import { gameHubRoute, gamePlayRoute } from './game';
 import { kiblatRoute } from './kiblat';
 import { hafalanRoute } from './hafalan';
+import { hafalanSessionRoute } from './hafalan.$surahId';
 import { dzikirRoute } from './dzikir';
 import { ramadhanTrackerRoute } from './ramadhan-tracker';
 
@@ -25,6 +26,7 @@ const routeTree = rootRoute.addChildren([
   gamePlayRoute,
   kiblatRoute,
   hafalanRoute,
+  hafalanSessionRoute,
   dzikirRoute,
   bookmarkRoute,
   settingsRoute,

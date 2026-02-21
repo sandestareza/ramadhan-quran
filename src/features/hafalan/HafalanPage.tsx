@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { useNavigate } from '@tanstack/react-router';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Target, Plus, Trophy, CheckCircle2, Circle, ChevronDown, ChevronUp, RotateCcw, Trash2, Check } from 'lucide-react';
+import { Target, Plus, Trophy, CheckCircle2, Circle, ChevronDown, ChevronUp, RotateCcw, Trash2, Check, BookOpen } from 'lucide-react';
 import { useHafalanTracker } from '@/hooks/useHafalanTracker';
 import { useSurahList } from '@/hooks/useQuran';
 import { cn } from '@/lib/utils';
@@ -11,6 +12,7 @@ export function HafalanPage() {
     totalSurahs, completedSurahs, totalAyatTarget, totalAyatMemorized,
   } = useHafalanTracker();
   const { data: surahs } = useSurahList();
+  const navigate = useNavigate();
 
   const [showAddPanel, setShowAddPanel] = useState(false);
   const [expandedSurah, setExpandedSurah] = useState<number | null>(null);
@@ -44,7 +46,7 @@ export function HafalanPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-violet-500 via-purple-600 to-indigo-700 dark:from-violet-700 dark:via-purple-800 dark:to-indigo-900 rounded-2xl p-5 mb-6 relative overflow-hidden"
+          className="bg-linear-to-br from-violet-500 via-purple-600 to-indigo-700 dark:from-violet-700 dark:via-purple-800 dark:to-indigo-900 rounded-2xl p-5 mb-6 relative overflow-hidden"
         >
           <div className="absolute -top-8 -right-8 w-32 h-32 border border-white/10 rounded-full" />
           <div className="absolute -bottom-4 -right-4 w-20 h-20 border border-white/10 rounded-full" />
@@ -271,7 +273,14 @@ export function HafalanPage() {
                           </div>
 
                           {/* Actions */}
-                          <div className="flex items-center gap-2 mt-4">
+                          <div className="grid grid-cols-2 items-center gap-2 mt-4">
+                            <button
+                              onClick={() => navigate({ to: '/hafalan/$surahId', params: { surahId: String(entry.surahNomor) } })}
+                              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-purple-50 dark:bg-purple-950/30 text-purple-700 dark:text-purple-400 text-xs font-medium hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-colors"
+                            >
+                              <BookOpen className="w-3.5 h-3.5" />
+                              Mulai Hafalan
+                            </button>
                             <button
                               onClick={() => markAllMemorized(entry.surahNomor)}
                               className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-400 text-xs font-medium hover:bg-green-100 dark:hover:bg-green-900/50 transition-colors"
@@ -291,7 +300,7 @@ export function HafalanPage() {
                                 setExpandedSurah(null);
                                 removeSurah(entry.surahNomor);
                               }}
-                              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 text-xs font-medium hover:bg-red-100 dark:hover:bg-red-900/50 transition-colors ml-auto"
+                              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 text-xs font-medium hover:bg-red-100 dark:hover:bg-red-900/50 transition-colors"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                               Hapus
